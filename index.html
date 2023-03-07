@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de contacto</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Formulario de contacto</h2>
+        <form id="contact-form">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" required>
+            </div>
+            <div class="form-group">
+                <label for="firstname">Nombre:</label>
+                <input type="text" class="form-control" id="firstname" placeholder="Ingrese su nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="lastname">Apellido:</label>
+                <input type="text" class="form-control" id="lastname" placeholder="Ingrese su apellido" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Teléfono:</label>
+                <input type="tel" class="form-control" id="phone" placeholder="Ingrese su número de teléfono" required>
+            </div>
+            <div class="form-group">
+                <label for="company">Empresa:</label>
+                <input type="text" class="form-control" id="company" placeholder="Ingrese el nombre de su empresa">
+            </div>
+            <div class="form-group">
+                <label for="website">Sitio web:</label>
+                <input  class="form-control" id="website" placeholder="Ingrese la URL de su sitio web">
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>  
+    <script>
+        // Obtener el formulario por su ID
+        const contactForm = document.getElementById('contact-form');
+        
+        // Agregar un evento para cuando se envía el formulario
+        contactForm.addEventListener('submit', (event) => {
+            // Evitar que el formulario se envíe de forma predeterminada
+            event.preventDefault();
+            
+            // Obtener los valores de los campos de entrada
+            const email = document.getElementById('email').value;
+            const firstname = document.getElementById('firstname').value;
+            const lastname = document.getElementById('lastname').value;
+            const phone = document.getElementById('phone').value;
+            const company = document.getElementById('company').value;
+            const website = document.getElementById('website').value;
+            
+            // Crear un objeto que contenga los datos del formulario
+            const formData = {
+                email: email,
+                firstname: firstname,
+                lastname: lastname,
+                phone: phone,
+                company: company,
+                website: website
+            };
+
+            ///////////////////////////
+
+            var myHeaders = new Headers();
+            myHeaders.append("token", "cDU5ZkhUdW9PcmVCdm96dm41Ny9oNT9yTWR4aVhwVDROcTNvMUpYVG0xYVljM0FERWNJRlNFRTZnQk1HUSEhVlpNUFd0Y09VUEN6T0V6ajBWNGxyPUxkSEZpMVV2LUstZ1pCemw3OXdMdDM1eCF0WDN2R0k0TXRxVkJRS0lFdTBjWUE4YTdtVVg0ZmtyLTE0WjROa3Q/RFZQek52NkJCVlJqQzkxQzFsVWVCOUg3aU5PdzNuc3JPalBKNVAyVm1reHo5bDNyOThVdG0vYXZ2enVGVDE9P2ZLNXU5eFNtUnhvV05GeDBWMzdITTR5SHItdnVOeWNmelRxYUd0NW0heQ");
+
+            var formdata = new FormData();
+
+            var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+            };
+
+            fetch(`https://sami4apihubspotqa.sami-shop.com/hubspot/crear/contactos?email=${email}&firstname=${firstname}&lastname=${lastname}&phone=${phone}&company=${company}&website=${website}`, requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+            
+        });
+    </script>
